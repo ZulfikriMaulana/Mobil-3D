@@ -1,0 +1,690 @@
+package org.yourorghere;
+
+/**
+ *
+ * @author Wim Sonevel
+ */
+import com.sun.j3d.utils.applet.MainFrame;
+import com.sun.j3d.utils.behaviors.mouse.MouseRotate;
+import com.sun.j3d.utils.universe.*;
+import com.sun.j3d.utils.geometry.Box;
+import com.sun.j3d.utils.geometry.Cylinder;
+import com.sun.j3d.utils.geometry.Sphere;
+import com.sun.j3d.utils.geometry.Cone;
+import java.awt.*;
+import javax.media.j3d.*;
+import javax.swing.*;
+import javax.vecmath.*;
+public class tigaD extends JApplet{
+
+    //membuat objek transform group
+    TransformGroup kotak;
+    TransformGroup lantai;
+    TransformGroup lantai2;
+    TransformGroup lantai3;
+    TransformGroup lantaibelakang3;
+    TransformGroup lantaidepan3;
+
+    TransformGroup dinding1;//didalam
+    TransformGroup dinding2;
+    TransformGroup dinding3;
+    TransformGroup dinding4;
+    TransformGroup dinding5;
+    TransformGroup dinding6;
+    
+    TransformGroup tangga1;
+    TransformGroup tangga2;
+    TransformGroup tanggakiri1;
+
+    TransformGroup tanggakanan1;
+    TransformGroup tanggakanan2;
+    TransformGroup tanggakanan3;
+    TransformGroup tanggakanan4;
+    TransformGroup tanggakanan5;
+    TransformGroup tanggakanan6;
+
+    TransformGroup tanggatengah1;
+    TransformGroup tanggatengah2;
+    TransformGroup tanggatengah3;
+    TransformGroup tanggatengah4;
+    TransformGroup tanggatengah5;
+    TransformGroup tanggatengah6;
+    TransformGroup tanggatengah7;
+    TransformGroup tanggatengah8;
+
+    TransformGroup tiang1;
+    TransformGroup tiang2;
+    TransformGroup tiangkiri1;
+    TransformGroup tiangkiri2;
+    TransformGroup tiangkiri3;
+    TransformGroup tiangkiri4;
+    TransformGroup tiangkiri5;
+
+    TransformGroup tiangkanan1;
+    TransformGroup tiangkanan2;
+
+    TransformGroup tiangSilinder1;
+    TransformGroup tiangSilinder2;
+    TransformGroup tiangSilinder3;
+    TransformGroup tiangSilinder4;
+    TransformGroup tiangSilinder5;
+    TransformGroup tiangSilinder6;
+    TransformGroup tiangSilinderkiri1;
+    TransformGroup tiangSilinderkiri2;
+
+    TransformGroup tiangSilinderbelakang1;
+    TransformGroup tiangSilinderbelakang2;
+    TransformGroup tiangSilinderbelakang3;
+    TransformGroup tiangSilinderbelakang4;
+    TransformGroup tiangSilinderbelakang5;
+    TransformGroup tiangSilinderbelakang6;
+
+    TransformGroup tiangkanan3;
+    TransformGroup tiangkanan4;
+   
+    TransformGroup tanggaSilinder1;
+    TransformGroup tanggaSilinder2;
+
+    TransformGroup atap1;
+    TransformGroup atap2;
+    TransformGroup atap3;
+    TransformGroup atap4;
+    TransformGroup atap5;
+
+    TransformGroup atap;
+
+    //objek transformasi
+    Transform3D trans = new Transform3D();
+    //vektor
+    Vector3f vector = new Vector3f();
+
+    public tigaD(){
+        setLayout(new BorderLayout());
+        GraphicsConfiguration config = SimpleUniverse.getPreferredConfiguration();
+        //membuat canvas
+        Canvas3D canvas = new Canvas3D(config);
+        add("Center",canvas);
+        //menginisialisasi scene graph
+        BranchGroup scene = buatScene();
+        //membuat universe
+        SimpleUniverse simUniverse = new SimpleUniverse(canvas);
+        simUniverse.getViewingPlatform().setNominalViewingTransform();
+        //mengambil scene objek
+        simUniverse.addBranchGraph(scene);
+    }
+
+    Appearance apr(float r, float g, float b){
+        Color3f red = new Color3f(r,g,b);
+        Color3f black = new Color3f(0.0f,0.0f,0.0f);
+        Color3f white = new Color3f(0.0f,0.0f,0.0f);
+        //mix warna
+        Material material = new Material(red, black, red, white, 64);
+        Appearance appearance = new Appearance();
+        appearance.setMaterial(material);
+        return appearance;
+    }
+
+    //method untuk membuat objek
+    void kotak(){
+        kotak = new TransformGroup();
+        //menentukan letak/posisi
+        vector.set(0.0f, -3.0f, 0.0f);
+        trans.set(vector);
+        //ditransformasikan
+        kotak.setTransform(trans);
+        //membuat box
+        Box kotak1 = new Box(5.0f,0.1f,5.0f,apr(0.0f, 0.5f, 0.0f));
+        //menambahkan child
+        kotak.addChild(kotak1);
+
+        lantai = new TransformGroup();
+        vector.set(0.0f, -2.5f, 0.0f);
+        trans.set(vector);
+        lantai.setTransform(trans);
+        Box lt = new Box(3.5f, 0.4f, 3.5f, apr(3.0f, 1.0f, 0.0f));
+        lantai.addChild(lt);
+
+        lantai2 = new TransformGroup();
+        vector.set(0.0f, 0.2f, 0.0f);
+        trans.set(vector);
+        lantai2.setTransform(trans);
+        Box lt2 = new Box(3.5f, 0.8f, 3.5f, apr(3.0f, 1.0f, 0.0f));
+        lantai2.addChild(lt2);
+
+        lantai3 = new TransformGroup();
+        vector.set(0.0f, 0.4f, 3.8f);
+        trans.set(vector);
+        lantai3.setTransform(trans);
+        Box lt3 = new Box(1.0f, 1.0f, 0.8f, apr(3.0f, 1.0f, 0.0f));
+        lantai3.addChild(lt3);
+
+        lantaibelakang3 = new TransformGroup();
+        vector.set(0.0f, 0.4f, -3.8f);
+        trans.set(vector);
+        lantaibelakang3.setTransform(trans);
+        Box ltbe3 = new Box(1.0f, 1.0f, 0.8f, apr(3.0f, 1.0f, 0.0f));
+        lantaibelakang3.addChild(ltbe3);
+
+        lantaidepan3 = new TransformGroup();
+        vector.set(4.0f, 0.4f, 0.0f);
+        trans.set(vector);
+        lantaidepan3.setTransform(trans);
+        Box ltde3 = new Box(1.0f, 1.0f, 0.8f, apr(3.0f, 1.0f, 0.0f));
+        lantaidepan3.addChild(ltde3);
+
+        dinding1 = new TransformGroup();
+        vector.set(-2.0f, -1.0f, 2.5f);
+        trans.set(vector);
+        dinding1.setTransform(trans);
+        Box d1 = new Box(1.3f, 1.5f, 0.05f, apr(2.0f, 1.0f, 1.0f));
+        dinding1.addChild(d1);
+
+        dinding2 = new TransformGroup();
+        vector.set(-2.0f, -1.0f, -2.5f);
+        trans.set(vector);
+        dinding2.setTransform(trans);
+        Box d2 = new Box(1.3f, 1.5f, 0.05f, apr(2.0f, 1.0f, 1.0f));
+        dinding2.addChild(d2);
+
+        dinding3 = new TransformGroup();
+        vector.set(1.2f, -1.0f, 2.5f);
+        trans.set(vector);
+        dinding3.setTransform(trans);
+        Box d3 = new Box(0.5f, 1.5f, 0.05f, apr(2.0f, 1.0f, 1.0f));
+        dinding3.addChild(d3);
+
+        dinding4 = new TransformGroup();
+        vector.set(1.2f, -1.0f, -2.5f);
+        trans.set(vector);
+        dinding4.setTransform(trans);
+        Box d4 = new Box(0.5f, 1.5f, 0.05f, apr(2.0f, 1.0f, 1.0f));
+        dinding4.addChild(d4);
+
+        dinding5 = new TransformGroup();
+        vector.set(1.65f, -1.2f, 1.6f);
+        trans.set(vector);
+        dinding5.setTransform(trans);
+        Box d5 = new Box(0.05f, 1.0f, 0.9f, apr(2.0f, 1.0f, 1.0f));
+        dinding5.addChild(d5);
+
+        dinding6 = new TransformGroup();
+        vector.set(1.65f, -1.2f, -1.6f);
+        trans.set(vector);
+        dinding6.setTransform(trans);
+        Box d6 = new Box(0.05f, 1.0f, 0.9f, apr(2.0f, 1.0f, 1.0f));
+        dinding6.addChild(d6);
+
+        tangga1 = new TransformGroup();
+        vector.set(0.0f, -2.7f, 4.0f);
+        trans.set(vector);
+        tangga1.setTransform(trans);
+        Box tg1 = new Box(0.8f, 0.3f, 0.5f, apr(5.0f, 1.0f, 0.0f));
+        tangga1.addChild(tg1);
+
+        tanggakiri1 = new TransformGroup();
+        vector.set(-4.0f, -2.5f, 0.0f);
+        trans.set(vector);
+        tanggakiri1.setTransform(trans);
+        Box tgk1 = new Box(0.5f, 0.4f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakiri1.addChild(tgk1);
+
+        tangga2 = new TransformGroup();
+        vector.set(0.0f, -2.75f, 4.7f);
+        trans.set(vector);
+        tangga2.setTransform(trans);
+        Box tg2 = new Box(0.5f, 0.14f, 0.2f, apr(5.0f, 1.0f, 0.0f));
+        tangga2.addChild(tg2);
+
+        tiang1 = new TransformGroup();
+        vector.set(0.7f, -1.5f, 3.7f);
+        trans.set(vector);
+        tiang1.setTransform(trans);
+        Box ti1 = new Box(0.1f, 0.9f, 0.5f, apr(5.0f, 1.0f, 0.0f));
+        tiang1.addChild(ti1);
+
+        tiang2 = new TransformGroup();
+        vector.set(-0.7f, -1.5f, 3.7f);
+        trans.set(vector);
+        tiang2.setTransform(trans);
+        Box ti2 = new Box(0.1f, 0.9f, 0.5f, apr(5.0f, 1.0f, 0.0f));
+        tiang2.addChild(ti2);
+
+        tiangkiri1 = new TransformGroup();
+        vector.set(-3.4f, -1.0f, 2.2f);
+        trans.set(vector);
+        tiangkiri1.setTransform(trans);
+        Box tik1 = new Box(0.1f, 2.0f, 1.5f, apr(5.0f, 1.0f, 0.0f));
+        tiangkiri1.addChild(tik1);
+
+        tiangkiri2 = new TransformGroup();
+        vector.set(-3.4f, -1.0f, -2.2f);
+        trans.set(vector);
+        tiangkiri2.setTransform(trans);
+        Box tik2 = new Box(0.1f, 2.0f, 1.5f, apr(5.0f, 1.0f, 0.0f));
+        tiangkiri2.addChild(tik2);
+
+        tiangkiri3 = new TransformGroup();
+        vector.set(-3.5f, -0.8f, -0.8f);
+        trans.set(vector);
+        tiangkiri3.setTransform(trans);
+        Box tik3 = new Box(1.0f, 2.2f, 0.1f, apr(5.0f, 1.0f, 0.0f));
+        tiangkiri3.addChild(tik3);
+
+        tiangkiri4 = new TransformGroup();
+        vector.set(-3.5f, -0.8f, 0.8f);
+        trans.set(vector);
+        tiangkiri4.setTransform(trans);
+        Box tik4 = new Box(1.0f, 2.2f, 0.1f, apr(5.0f, 1.0f, 0.0f));
+        tiangkiri4.addChild(tik4);
+
+        tiangkiri5 = new TransformGroup();
+        vector.set(-4.5f, -0.8f, 0.0f);
+        trans.set(vector);
+        tiangkiri5.setTransform(trans);
+        Box tik5 = new Box(0.1f, 2.2f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tiangkiri5.addChild(tik5);
+
+        tiangkanan1 = new TransformGroup();
+        vector.set(4.0f, -1.7f, 1.0f);
+        trans.set(vector);
+        tiangkanan1.setTransform(trans);
+        Box tika1 = new Box(1.0f, 1.2f, 0.1f, apr(5.0f, 1.0f, 0.0f));
+        tiangkanan1.addChild(tika1);
+
+        tiangkanan2 = new TransformGroup();
+        vector.set(4.0f, -1.7f, -1.0f);
+        trans.set(vector);
+        tiangkanan2.setTransform(trans);
+        Box tika2 = new Box(1.0f, 1.2f, 0.1f, apr(5.0f, 1.0f, 0.0f));
+        tiangkanan2.addChild(tika2);
+
+        tiangkanan3 = new TransformGroup();
+        vector.set(3.4f, -1.7f, 3.2f);
+        trans.set(vector);
+        tiangkanan3.setTransform(trans);
+        Box tika3 = new Box(0.1f, 1.2f, 0.3f, apr(5.0f, 1.0f, 0.0f));
+        tiangkanan3.addChild(tika3);
+
+        tiangkanan4 = new TransformGroup();
+        vector.set(3.4f, -1.7f, -3.2f);
+        trans.set(vector);
+        tiangkanan4.setTransform(trans);
+        Box tika4 = new Box(0.1f, 1.2f, 0.3f, apr(5.0f, 1.0f, 0.0f));
+        tiangkanan4.addChild(tika4);
+
+        tanggakanan1 = new TransformGroup();
+        vector.set(3.65f, -2.6f, 2.5f);
+        trans.set(vector);
+        tanggakanan1.setTransform(trans);
+        Box tgkanan1 = new Box(0.15f, 0.3f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan1.addChild(tgkanan1);
+
+        tanggakanan2 = new TransformGroup();
+        vector.set(3.95f, -2.7f, 2.5f);
+        trans.set(vector);
+        tanggakanan2.setTransform(trans);
+        Box tgkanan2 = new Box(0.15f, 0.3f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan2.addChild(tgkanan2);
+        
+        tanggakanan3 = new TransformGroup();
+        vector.set(4.22f, -2.75f, 2.5f);
+        trans.set(vector);
+        tanggakanan3.setTransform(trans);
+        Box tgkanan3 = new Box(0.15f, 0.18f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan3.addChild(tgkanan3);
+
+        tanggakanan4 = new TransformGroup();
+        vector.set(3.65f, -2.6f, -2.5f);
+        trans.set(vector);
+        tanggakanan4.setTransform(trans);
+        Box tgkanan4 = new Box(0.15f, 0.3f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan4.addChild(tgkanan4);
+
+        tanggakanan5 = new TransformGroup();
+        vector.set(3.95f, -2.7f, -2.5f);
+        trans.set(vector);
+        tanggakanan5.setTransform(trans);
+        Box tgkanan5 = new Box(0.15f, 0.3f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan5.addChild(tgkanan5);
+
+        tanggakanan6 = new TransformGroup();
+        vector.set(4.22f, -2.75f, -2.5f);
+        trans.set(vector);
+        tanggakanan6.setTransform(trans);
+        Box tgkanan6 = new Box(0.15f, 0.18f, 0.8f, apr(5.0f, 1.0f, 0.0f));
+        tanggakanan6.addChild(tgkanan6);
+
+        tanggatengah1 = new TransformGroup();
+        vector.set(4.3f, -2.75f, 0.0f);
+        trans.set(vector);
+        tanggatengah1.setTransform(trans);
+        Box tgtengah1 = new Box(0.8f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah1.addChild(tgtengah1);
+
+        tanggatengah2 = new TransformGroup();
+        vector.set(4.0f, -2.5f, 0.0f);
+        trans.set(vector);
+        tanggatengah2.setTransform(trans);
+        Box tgtengah2 = new Box(0.8f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah2.addChild(tgtengah2);
+
+        tanggatengah3 = new TransformGroup();
+        vector.set(3.7f, -2.25f, 0.0f);
+        trans.set(vector);
+        tanggatengah3.setTransform(trans);
+        Box tgtengah3 = new Box(0.8f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah3.addChild(tgtengah3);
+
+        tanggatengah4 = new TransformGroup();
+        vector.set(3.4f, -2.0f, 0.0f);
+        trans.set(vector);
+        tanggatengah4.setTransform(trans);
+        Box tgtengah4 = new Box(0.8f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah4.addChild(tgtengah4);
+
+        tanggatengah5 = new TransformGroup();
+        vector.set(3.2f, -1.75f, 0.0f);
+        trans.set(vector);
+        tanggatengah5.setTransform(trans);
+        Box tgtengah5 = new Box(0.6f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah5.addChild(tgtengah5);
+
+        tanggatengah6 = new TransformGroup();
+        vector.set(3.0f, -1.5f, 0.0f);
+        trans.set(vector);
+        tanggatengah6.setTransform(trans);
+        Box tgtengah6 = new Box(0.4f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah6.addChild(tgtengah6);
+
+        tanggatengah7 = new TransformGroup();
+        vector.set(2.8f, -1.25f, 0.0f);
+        trans.set(vector);
+        tanggatengah7.setTransform(trans);
+        Box tgtengah7 = new Box(0.2f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah7.addChild(tgtengah7);
+
+        tanggatengah8 = new TransformGroup();
+        vector.set(2.7f, -1.0f, 0.0f);
+        trans.set(vector);
+        tanggatengah8.setTransform(trans);
+        Box tgtengah8 = new Box(0.1f, 0.18f, 0.9f, apr(5.0f, 1.0f, 0.0f));
+        tanggatengah8.addChild(tgtengah8);
+
+        tiangSilinder1 = new TransformGroup();
+        vector.set(2.7f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder1.setTransform(trans);
+        Cylinder ts1 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder1.addChild(ts1);
+
+        tiangSilinder2 = new TransformGroup();
+        vector.set(2.0f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder2.setTransform(trans);
+        Cylinder ts2 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder2.addChild(ts2);
+
+        tiangSilinder3 = new TransformGroup();
+        vector.set(1.3f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder3.setTransform(trans);
+        Cylinder ts3 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder3.addChild(ts3);
+
+        tiangSilinder4 = new TransformGroup();
+        vector.set(-2.7f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder4.setTransform(trans);
+        Cylinder ts4 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder4.addChild(ts4);
+
+        tiangSilinder5 = new TransformGroup();
+        vector.set(-2.0f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder5.setTransform(trans);
+        Cylinder ts5 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder5.addChild(ts5);
+
+        tiangSilinder6 = new TransformGroup();
+        vector.set(-1.3f, -1.35f, 3.4f);
+        trans.set(vector);
+        tiangSilinder6.setTransform(trans);
+        Cylinder ts6 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinder6.addChild(ts6);
+
+        tiangSilinderkiri1 = new TransformGroup();
+        vector.set(3.4f, -1.35f, 2.0f);
+        trans.set(vector);
+        tiangSilinderkiri1.setTransform(trans);
+        Cylinder tski1 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderkiri1.addChild(tski1);
+
+        tiangSilinderkiri2 = new TransformGroup();
+        vector.set(3.4f, -1.35f, -2.0f);
+        trans.set(vector);
+        tiangSilinderkiri2.setTransform(trans);
+        Cylinder tski2 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderkiri2.addChild(tski2);
+
+
+        tiangSilinderbelakang1 = new TransformGroup();
+        vector.set(2.7f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang1.setTransform(trans);
+        Cylinder tsb1 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang1.addChild(tsb1);
+
+        tiangSilinderbelakang2 = new TransformGroup();
+        vector.set(2.0f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang2.setTransform(trans);
+        Cylinder tsb2 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang2.addChild(tsb2);
+
+        tiangSilinderbelakang3 = new TransformGroup();
+        vector.set(1.3f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang3.setTransform(trans);
+        Cylinder tsb3 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang3.addChild(tsb3);
+
+        tiangSilinderbelakang4 = new TransformGroup();
+        vector.set(-2.7f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang4.setTransform(trans);
+        Cylinder tsb4 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang4.addChild(tsb4);
+
+        tiangSilinderbelakang5 = new TransformGroup();
+        vector.set(-2.0f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang5.setTransform(trans);
+        Cylinder tsb5 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang5.addChild(tsb5);
+
+        tiangSilinderbelakang6 = new TransformGroup();
+        vector.set(-1.3f, -1.35f, -3.4f);
+        trans.set(vector);
+        tiangSilinderbelakang6.setTransform(trans);
+        Cylinder tsb6 = new Cylinder(0.15f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        tiangSilinderbelakang6.addChild(tsb6);
+
+        tanggaSilinder1 = new TransformGroup();
+        vector.set(2.4f, -1.35f, 1.8f);
+        trans.set(vector);
+        tanggaSilinder1.setTransform(trans);
+        Cylinder tas1 = new Cylinder(0.45f, 1.5f, apr(0.0f, 1.0f, 1.0f));
+        tanggaSilinder1.addChild(tas1);
+
+        tanggaSilinder2 = new TransformGroup();
+        vector.set(2.4f, -1.35f, -1.8f);
+        trans.set(vector);
+        tanggaSilinder2.setTransform(trans);
+        Cylinder tas2 = new Cylinder(0.45f, 1.5f, apr(0.0f, 1.0f, 1.0f));
+        tanggaSilinder2.addChild(tas2);
+
+        atap1 = new TransformGroup();
+        vector.set(0.0f, 1.7f, 0.0f);
+        trans.set(vector);
+        atap1.setTransform(trans);
+        Cylinder atp1 = new Cylinder(1.7f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        atap1.addChild(atp1);
+
+        atap = new TransformGroup();
+        vector.set(0.0f, 2.7f, 0.0f);
+        trans.set(vector);
+        atap.setTransform(trans);
+        Sphere atp = new Sphere(1.7f, apr(5.0f, 1.0f, 0.0f));
+        atap.addChild(atp);
+
+        atap2 = new TransformGroup();
+        vector.set(0.0f, 2.1f, 3.8f);
+        trans.set(vector);
+        atap2.setTransform(trans);
+        Cone atp2 = new Cone(1.7f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        atap2.addChild(atp2);
+
+        atap3 = new TransformGroup();
+        vector.set(-3.5f, 2.1f, 0.0f);
+        trans.set(vector);
+        atap3.setTransform(trans);
+        Cone atp3 = new Cone(1.7f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        atap3.addChild(atp3);
+
+        atap4 = new TransformGroup();
+        vector.set(0.0f, 2.1f, -3.8f);
+        trans.set(vector);
+        atap4.setTransform(trans);
+        Cone atp4 = new Cone(1.7f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        atap4.addChild(atp4);
+
+        atap5 = new TransformGroup();
+        vector.set(4.0f, 2.1f, 0.0f);
+        trans.set(vector);
+        atap5.setTransform(trans);
+        Cone atp5 = new Cone(1.7f, 1.5f, apr(6.0f, 0.0f, 0.0f));
+        atap5.addChild(atp5);
+    }
+
+    //membuat scene graph
+    BranchGroup buatScene(){
+        //sebagai root
+        BranchGroup objRoot = new BranchGroup();
+
+        //membuat transform group untuk transformasi
+        TransformGroup objScale = new TransformGroup();
+        //membuat transformasi
+        Transform3D scaleTrans = new Transform3D();
+        scaleTrans.set(1/6.0f);
+        objScale.setTransform(scaleTrans);
+        objRoot.addChild(objScale);
+
+        //objek transformasi
+        TransformGroup objTrans = new TransformGroup();
+        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_WRITE);
+        objTrans.setCapability(TransformGroup.ALLOW_TRANSFORM_READ);
+        objScale.addChild(objTrans);
+        kotak();
+
+        //meletakkan objek-objek sebagai child
+        objTrans.addChild(kotak);
+        objTrans.addChild(lantai);
+        objTrans.addChild(lantai2);
+        objTrans.addChild(lantai3);
+        objTrans.addChild(lantaibelakang3);
+        objTrans.addChild(lantaidepan3);
+
+        objTrans.addChild(dinding1);
+        objTrans.addChild(dinding2);
+        objTrans.addChild(dinding3);
+        objTrans.addChild(dinding4);
+        objTrans.addChild(dinding5);
+        objTrans.addChild(dinding6);
+        
+        objTrans.addChild(tangga1);
+        objTrans.addChild(tanggakiri1);
+        objTrans.addChild(tangga2);
+        objTrans.addChild(tiang1);
+        objTrans.addChild(tiang2);
+        objTrans.addChild(tiangkiri1);
+        objTrans.addChild(tiangkiri2);
+        objTrans.addChild(tiangkiri3);
+        objTrans.addChild(tiangkiri4);
+        objTrans.addChild(tiangkiri5);
+        objTrans.addChild(tiangkanan1);
+        objTrans.addChild(tiangkanan2);
+        objTrans.addChild(tiangkanan3);
+        objTrans.addChild(tiangkanan4);
+        objTrans.addChild(tanggakanan1);
+        objTrans.addChild(tanggakanan2);
+        objTrans.addChild(tanggakanan3);
+        objTrans.addChild(tanggakanan4);
+        objTrans.addChild(tanggakanan5);
+        objTrans.addChild(tanggakanan6);
+        objTrans.addChild(tanggatengah1);
+        objTrans.addChild(tanggatengah2);
+        objTrans.addChild(tanggatengah3);
+        objTrans.addChild(tanggatengah4);
+        objTrans.addChild(tanggatengah5);
+        objTrans.addChild(tanggatengah6);
+        objTrans.addChild(tanggatengah7);
+        objTrans.addChild(tanggatengah8);
+        
+        objTrans.addChild(tiangSilinder1);
+        objTrans.addChild(tiangSilinder2);
+        objTrans.addChild(tiangSilinder3);
+        objTrans.addChild(tiangSilinder4);
+        objTrans.addChild(tiangSilinder5);
+        objTrans.addChild(tiangSilinder6);
+
+        objTrans.addChild(tiangSilinderkiri1);
+        objTrans.addChild(tiangSilinderkiri2);
+
+        objTrans.addChild(tiangSilinderbelakang1);
+        objTrans.addChild(tiangSilinderbelakang2);
+        objTrans.addChild(tiangSilinderbelakang3);
+        objTrans.addChild(tiangSilinderbelakang4);
+        objTrans.addChild(tiangSilinderbelakang5);
+        objTrans.addChild(tiangSilinderbelakang6);
+
+        objTrans.addChild(tanggaSilinder1);
+        objTrans.addChild(tanggaSilinder2);
+
+        objTrans.addChild(atap1);
+        objTrans.addChild(atap);
+        objTrans.addChild(atap2);
+        objTrans.addChild(atap3);
+        objTrans.addChild(atap4);
+        objTrans.addChild(atap5);
+
+        BoundingSphere bounds = new BoundingSphere(new Point3d(), 50);
+        Background bg = new Background(new Color3f(9.0f, 9.0f, 8.0f));
+        bg.setApplicationBounds(bounds);
+        objTrans.addChild(bg);
+
+        //mengatur mouse
+        MouseRotate mr = new MouseRotate();
+        mr.setTransformGroup(objTrans);
+        mr.setSchedulingBounds(bounds);
+        mr.setFactor(0.007);
+        objTrans.addChild(mr);
+
+        //mengatur terang
+        Color3f ambientColor = new Color3f(0.1f, 0.1f, 0.1f);
+        //penyebaran 
+        AmbientLight ambientLightNode = new AmbientLight(ambientColor);
+        ambientLightNode.setInfluencingBounds(bounds);
+        objRoot.addChild(ambientLightNode);
+        Color3f light1Color = new Color3f(1.0f, 1.0f, 1.0f);
+        Vector3f light1Direction = new Vector3f(-0.2f, -0.5f, -0.5f);
+        DirectionalLight light1 = new DirectionalLight(light1Color, light1Direction);
+        light1.setInfluencingBounds(bounds);
+        objRoot.addChild(light1);
+
+        return objRoot;
+    }
+    public static void main(String[]args){
+        Frame frame = new MainFrame(new tigaD(), 700,600);
+        frame.setLocationRelativeTo(null);
+    }
+}
